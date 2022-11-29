@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests, os, re, json, time
 
-folder_path = 'spoken_addresses/'
+folder_path = 'data/spoken_addresses/'
 overwrite = True
 link_head = 'https://www.presidency.ucsb.edu'
 
