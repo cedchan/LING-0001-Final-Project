@@ -1,0 +1,36 @@
+,1789_Washington_Inaugural_Address,1793_Washington_Inaugural_Address
+date,1789-04-30,1793-03-04
+pres_name,George Washington,George Washington
+byline,1st President of the United States: 1789 ‐ 1797,1st President of the United States: 1789 ‐ 1797
+title,Inaugural Address,Inaugural Address
+num_tokens,1546,147
+num_sentences,23,4
+avg_tree_edit_dist_adjacent,138.22727272727272,79.0
+avg_node_depth,12.68111254851229,9.061224489795919
+max_node_depth,50,23
+avg_node_clause_depth,2.4573091849935316,1.6598639455782314
+max_node_clause_depth,8,4
+avg_clause_length,55.31944444444444,30.8
+clauses_per_sent,6.260869565217392,3.75
+sbars_per_sent,3.3043478260869565,2.25
+pronouns_per_sent,4.695652173913044,3.25
+pronouns_per_clause,0.75,0.8666666666666667
+pronoun_prop_of_leaf_nps,0.31486880466472306,0.35135135135135137
+avg_num_np_modifiers,5.101851851851852,4.111111111111111
+parataxis_per_sent_strict,0.0,0.0
+parataxis_per_sent_loose,0.6521739130434783,0.0
+num_unk,2,0
+num_words,1434,135
+avg_dependency_distance,3.5564853556485354,3.066666666666667
+max_dependency_distance,82,46
+avg_sentence_length_by_tok,67.21739130434783,36.75
+avg_sentence_length_by_word,62.34782608695652,33.75
+avg_words_before_root,13.478260869565217,16.5
+num_uniq_words,593,90
+proportion_uniq,0.4158485273492286,0.6666666666666666
+stop_words_per_clause,5.923611111111111,5.266666666666667
+stop_words_per_sentence,37.08695652173913,19.75
+benepar_analysis_time,0.004415000003064051,0.0027995999989798293
+spacy_analysis_time,0.28703170000517275,0.19113849999848753
+tree_edit_distance_time,5.894141099997796,0.14085579999664333
+total_file_analysis_time,14.369822400003613,0.9654097000020556
