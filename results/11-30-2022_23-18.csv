@@ -1,0 +1,45 @@
+,1789_Washington_Inaugural_Address,1793_Washington_Inaugural_Address
+date,1789-04-30,1793-03-04
+pres_name,George Washington,George Washington
+byline,1st President of the United States: 1789 ‐ 1797,1st President of the United States: 1789 ‐ 1797
+title,Inaugural Address,Inaugural Address
+benepar_analysis_time,0.006772599997930229,0.00275800000235904
+spacy_analysis_time,0.3053522999980487,0.15547099999093916
+tree_edit_distance_time,9.077249100009794,0.17448549999971874
+total_file_analysis_time,16.750818000000436,0.9637272000109078
+num_tokens,1546,147
+num_sentences,23,4
+avg_tree_edit_dist_adjacent,138.22727272727272,79.0
+avg_node_depth,12.68111254851229,9.061224489795919
+max_node_depth,50,23
+avg_node_clause_depth,2.4573091849935316,1.6598639455782314
+max_node_clause_depth,8,4
+avg_clause_length,55.31944444444444,30.8
+clauses_per_sent,6.260869565217392,3.75
+sbars_per_sent,3.3043478260869565,2.25
+pronouns_per_sent,4.695652173913044,3.25
+pronouns_per_clause,0.75,0.8666666666666667
+pronoun_prop_of_leaf_nps,0.31486880466472306,0.35135135135135137
+avg_num_np_modifiers,5.101851851851852,4.111111111111111
+loose_parataxis_per_sent,1.391304347826087,1.0
+root_parataxis_per_sent_strict,1.0,1.0
+root_parataxis_per_sent_loose,1.173913043478261,1.0
+num_unk,2,0
+num_words,1434,135
+avg_dependency_distance,3.5564853556485354,3.066666666666667
+max_dependency_distance,82,46
+avg_sentence_length_by_tok,67.21739130434783,36.75
+avg_sentence_length_by_word,62.34782608695652,33.75
+avg_words_before_root,13.478260869565217,16.5
+num_uniq_words,593,90
+proportion_uniq,0.4158485273492286,0.6666666666666666
+stop_words_per_clause,5.923611111111111,5.266666666666667
+stop_words_per_sentence,37.08695652173913,19.75
+avg_aoa_max,6.20109134425037,6.050308873015872
+avg_aoa_uniq_max,8.117487323792481,6.915938049382718
+avg_stopless_aoa_max,8.616686620000003,8.5754675
+avg_stopless_aoa_uniq_max,8.83681184494382,8.522199468085107
+avg_word_freq,6791.014007567937,8143.48902546093
+avg_word_freq_uniq,835.0980727333671,2832.0169640890063
+avg_word_freq_stopless,94.66447278211987,78.10053475935828
+avg_word_freq_stopless_uniq,76.63835837365254,75.29638009049772
