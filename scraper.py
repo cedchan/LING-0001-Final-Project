@@ -1,3 +1,11 @@
+'''
+Scrapes UCSB Presidency Project website for all files under given category ("Inaugural Addresses," etc.).
+Stores as a JSON file the title of entry, president, date, text, and any extraneous comments cleaned out in 
+the process. ("Extraneous comments" are text enclosed in square brackets "[]," which typically include audience
+information, or speech pause information. In rare cases, they may be used to correct quotations. This case is ignored
+for now.) Below links can be changed to search other categories.
+'''
+
 from bs4 import BeautifulSoup
 import requests, os, re, json, time
 

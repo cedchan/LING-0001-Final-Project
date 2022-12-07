@@ -1,3 +1,8 @@
+''' 
+Takes raw dictionary of AoA values and lemmatizes each item, then returns a new CSV
+file containing that information for later analysis.
+'''
+
 import spacy
 import pandas as pd
 

@@ -1,3 +1,8 @@
+'''
+Takes raw word frequency dictionary and lowercases each entry (note that even lowercased,
+there are no entries). Then creates a JSON file with these words mapped to their word frequency.
+'''
+
 import pandas as pd
 import json
 
