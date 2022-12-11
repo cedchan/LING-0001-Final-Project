@@ -10,15 +10,6 @@ results = pd.read_csv('results/complete_12-10.csv', header=0, index_col=0).T
 results_data = results['num_tokens':].drop(['num_tokens', 'num_words', 'num_sentences', 'num_unk', 'num_uniq_words', 'avg_word_freq_uniq'])
 results_std = StandardScaler().fit_transform(results_data).T
 
-# # PCA SKLEARN
-# pca = PCA(n_components=3).fit(results_std)
-# print(pca.explained_variance_ratio_)
-# print(sum(pca.explained_variance_ratio_))
-
-# comps = pd.DataFrame(pca.components_.T, index=list(results_data.index), columns=['1', '2', '3'])
-# m = comps.abs().nlargest(20, ['1']).index
-# print(comps.loc[m])
-
 # PCA MANUAL
 n = 3
 
