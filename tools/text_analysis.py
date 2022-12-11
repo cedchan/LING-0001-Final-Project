@@ -31,6 +31,7 @@ def benepar_analysis(sent):
     }
 
     paratactic_sum_local = 0
+    max_clause_depth = 0
 
     xml = misc_tools.sexp_to_xml(sent._.parse_string)
     root = etree.fromstring(xml) 
@@ -47,7 +48,7 @@ def benepar_analysis(sent):
         if tag in const.CLAUSE_TAGS: 
             features['num_clauses'] += 1
             features['clause_length_sum'] += sum(int(not(d.tag.startswith('PUNCT-') and bool(d.text))) for d in e.iterdescendants())
-            
+
             paratactic_sum_local += benepar_tools.get_parataxis_loose(e)
         elif e.tag == 'NP':
             features['num_nps'] += 1
@@ -69,10 +70,15 @@ def benepar_analysis(sent):
             max_features['max_depth'] = max(max_features['max_depth'], depth)
 
             clause_depth = len(const.CLAUSE_RE.findall(path))
+            # if clause_depth > 6:
+            #     print(' '.join([x for x in root.itertext()]))
             features['clause_depth_sum'] += clause_depth
-            max_features['max_clause_depth'] = max(max_features['max_clause_depth'], clause_depth)
+            max_clause_depth = max(max_clause_depth, clause_depth)
+            
             
     features['paratactic_sum'] = max(1, paratactic_sum_local)
+    max_features['max_clause_depth'] = max_clause_depth
+    features['max_clause_depth_sum'] = max_clause_depth
 
     return features, max_features
 

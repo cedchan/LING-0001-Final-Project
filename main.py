@@ -88,6 +88,7 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
     summary = {
         # File-level
         'date' : metadata['date'],
+        'year' : re.search('(\d{4})', metadata['date']).group(1),
         'pres_name' : metadata['pres_name'],
         'byline' : metadata['byline'],
         'title' : metadata['title'],
@@ -110,6 +111,7 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
         'max_node_depth' : features['max_depth'], # Equivalent to tree height
         'avg_node_clause_depth' : features['clause_depth_sum'] / num_tokens,
         'max_node_clause_depth' : features['max_clause_depth'],
+        'avg_max_clause_depth' : features['max_clause_depth_sum'] / num_sents,
         'avg_clause_length' : features['clause_length_sum'] / features['num_clauses'],
         'clauses_per_sent' : features['num_clauses'] / num_sents, 
         'sbars_per_sent' : features['num_sbar'] / num_sents,
@@ -149,4 +151,4 @@ print("Error Log:")
 print(log)
 pd.set_option('display.precision', 2)
 print(results)
-results.to_csv(f"results/{datetime.now().strftime('%m-%d-%Y_%H-%M')}.csv")
+results.T.to_csv(f"results/{datetime.now().strftime('%m-%d-%Y_%H-%M')}.csv")

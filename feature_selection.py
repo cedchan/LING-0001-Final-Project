@@ -1,9 +1,6 @@
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import normalize
-from sklearn.decomposition import FactorAnalysis
 
 results = pd.read_csv('results/complete_12-10.csv', header=0, index_col=0).T
 
@@ -26,7 +23,6 @@ for i in range(len(evals)):
  
 print(variance[0:n])
 print(sum(variance[0:n]))
-
 
 from sklearn.feature_selection import RFE
 from sklearn.tree import DecisionTreeClassifier
@@ -60,7 +56,9 @@ for i in range(results_std.shape[1]):
     if selector.get_support()[i]:
         print(list(results_data.index)[i])
 
-#                                   PC1       PC2       PC3
+# PCA
+#  
+#                                  PC1       PC2       PC3
 # avg_word_freq_stopless       0.841776 -0.172820 -0.451594
 # avg_word_freq_stopless_uniq  0.430487 -0.049878  0.878628
 # avg_tree_edit_dist_adjacent -0.177938 -0.212407  0.073391

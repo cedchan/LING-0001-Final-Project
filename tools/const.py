@@ -10,7 +10,8 @@ PRONOUN_TAGS = ['PRP', 'PRPS']
 
 BENEPAR_FEATURES_LST = ['num_clauses', 'num_sbar', 'num_unk', 'depth_sum', 'clause_depth_sum', 'pronoun_sum', 
         'num_leaf_nps', 'num_nps', 'np_leaf_sum', 'clause_length_sum', 'paratactic_sum', 
-        'root_parataxis_strict', 'root_parataxis_loose']
+        'root_parataxis_strict', 'root_parataxis_loose', 'max_clause_depth_sum', 'd1_clause_sum', 'd2_clause_sum',
+        'd3_clause_sum', 'd4_clause_sum']
 SPACY_FEATURES_LST = ['dep_dist_sum', 'num_words', 'words_before_root_sum', 'uniq_words', 
         'num_words_no_nums', 'num_stop_words', 'aoa_sum', 'aoa_count', 
         'aoa_stopless_sum', 'aoa_stopless_count', 'aoa_uniq_sum', 'aoa_uniq_count',
