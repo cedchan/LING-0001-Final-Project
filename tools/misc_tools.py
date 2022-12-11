@@ -18,6 +18,20 @@ def clean_xml(xml):
     xml = re.sub('<(/?)[^a-zA-Z/][^>]*>', '<\g<1>UNK>', xml) # invalid tokens labeled 'UNK'
     return xml.replace(' ', '')
 
+def apply_inner_re(s):
+    '''
+    Replaces each inner group of parentheses with XML tags. Should be called repeatedly
+    until no such parenthesis remains, at which point the entire string should be converted
+    into proper XML. 
+
+    Args:
+        s: String to replace
+    
+    Returns:
+        Inner group replaced with XML tags
+    '''
+    return re.sub('\(([^ ]*) ([^\)\(]*)\)', '<\g<1>> \g<2> </\g<1>>', s)
+
 def sexp_to_xml(sexp):
     '''
     Changes an S-expression tree to an XML tree. Special tags found in "special_chars.txt"
@@ -29,14 +43,12 @@ def sexp_to_xml(sexp):
     Returns:
         XML tree as string
     '''
-    def apply_inner_re(s):
-        return re.sub('\(([^ ]*) ([^\)\(]*)\)', '<\g<1>> \g<2> </\g<1>>', s)
 
     xml = apply_inner_re(sexp)
     while xml.startswith('('):
         xml = apply_inner_re(xml)
 
-    with open('special_chars.txt') as f:
+    with open('reference/special_chars.txt') as f:
         special_chars = dict([line.split() for line in f])
 
     def key_to_re(s):
