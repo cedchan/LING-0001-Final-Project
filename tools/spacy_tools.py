@@ -7,6 +7,7 @@ import spacy
 from tools import const
 
 lemmatizer = spacy.load('en_core_web_sm', disable=['parser', 'ner'])
+parser_simp = spacy.load('en_core_web_sm', disable=['tagger', 'ner', 'lemmatizer'])
 
 def lemmatize(word: str):
     '''
@@ -61,3 +62,22 @@ def aoa_of(word: str, aoa_mode: str):
         return min(lemmas)
     
     return -1
+
+def words_before_root(span: str):
+    '''
+    Finds the number of words before the root of a given span. The span
+    is assumed to be a single sentence. If there are multiple sentences detected,
+    only the first is considered.
+
+    Args: 
+        span: span to do calculation
+    
+    Returns:
+        Number of words before span root
+    '''
+    phrase = list(parser_simp(span).sents)[0]
+    
+    def is_word_before_root(token):
+        return not(token.is_punct or token.is_space ) and token.i < phrase.root.i
+
+    return sum(int(is_word_before_root(token)) for token in phrase)

@@ -53,12 +53,15 @@ def benepar_analysis(sent):
         elif e.tag == 'NP':
             features['num_nps'] += 1
             is_leaf_np = True
+            np_text = ""
             for c in e.iterdescendants():
                 if c.text: 
                     if not(c.tag.startswith('PUNCT-') or c.tag == 'DT'): # ignore determiners and punctuation
+                        np_text += c.text + " "
                         features['np_leaf_sum'] += 1
                 else:
                     is_leaf_np = False
+            features['words_before_np_root_sum'] += spacy_tools.words_before_root(np_text)
             if is_leaf_np:
                 features['num_leaf_nps'] += 1
         
