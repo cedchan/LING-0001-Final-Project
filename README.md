@@ -17,18 +17,23 @@ Below are the "features" and other analytic data that `main.py` collects and sto
 ### Collected Features
 - `num_tokens`
 - `num_sentences`
-- `avg_tree_edit_dist`
+- `num_paratactic_clauses`
+- `avg_tree_edit_dist_adjacent`
 - `avg_node_depth`
 - `max_node_depth`
 - `avg_node_clause_depth`
 - `max_node_clause_depth`
+- `avg_max_clause_depth`
 - `avg_clause_length`
 - `clauses_per_sent`
 - `sbars_per_sent`
+- `sbars_by_parataxis`
 - `pronouns_per_sent`
 - `pronouns_per_clause`
+- `pronouns_by_parataxis`
 - `pronoun_prop_of_leaf_nps`
-- `avg_num_np_modifiers`
+- `avg_np_length`
+- `avg_words_before_np_root`
 - `loose_parataxis_per_sent`
 - `root_parataxis_per_sent_strict`
 - `root_parataxis_per_sent_loose`
@@ -38,22 +43,25 @@ Below are the "features" and other analytic data that `main.py` collects and sto
 - `max_dependency_distance`
 - `avg_sentence_length_by_tok`
 - `avg_sentence_length_by_word`
+- `avg_paratactic_clause_len_by_word`
 - `avg_words_before_root`
 - `num_uniq_words`
 - `proportion_uniq`
 - `stop_words_per_clause`
 - `stop_words_per_sentence`
-- `avg_aoa`
-- `avg_aoa_uniq`
-- `avg_stopless_aoa`
-- `avg_stopless_aoa_uniq`
+- `stop_words_by_parataxis`
+- `avg_aoa_min`
+- `avg_aoa_uniq_min`
+- `avg_stopless_aoa_min`
+- `avg_stopless_aoa_uniq_min`
 - `avg_word_freq`
 - `avg_word_freq_uniq`
 - `avg_word_freq_stopless`
 - `avg_word_freq_stopless_uniq`
 
-### Collected Analytics
+### Other Collected Information
 - `date`
+- `year`
 - `pres_name`
 - `byline`
 - `title`
