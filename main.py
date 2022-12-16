@@ -35,7 +35,7 @@ log = ""
 
 for i, file in enumerate(os.scandir('data/text_jsons/')):
     # if i == 2: break
-    
+
     file_time = time.perf_counter()
     file_name = re.sub('\.json$', '', file.name)
     with open(file, encoding='utf-8') as f:
@@ -43,7 +43,7 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
     text = metadata['text']
     text = text.replace('\n', ' ').strip()
     text = re.sub('\s{2,}', ' ', text)
-    
+
     try:
         doc = nlp(text)
     except ValueError:
@@ -61,7 +61,7 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
     num_sents = len(sents)
     ted_sum = 0
 
-    features = Counter({x : 0 for x in const.MAST_FEATURES_LST})
+    features = Counter({x: 0 for x in const.MAST_FEATURES_LST})
     uniq_words = set()
 
     for sent in sents:
@@ -69,85 +69,93 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
         b_features, b_max_features = ta.benepar_analysis(sent)
         features.update(b_features)
         for feature in b_max_features:
-            features[feature] = max(features.get(feature), b_max_features[feature])
+            features[feature] = max(features.get(
+                feature), b_max_features[feature])
         benepar_time = time.perf_counter() - benepar_time
 
         spacy_time = time.perf_counter()
-        s_features, s_max_features, sent_vocab = ta.spacy_analysis(sent, uniq_words, aoa_mode)
+        s_features, s_max_features, sent_vocab = ta.spacy_analysis(
+            sent, uniq_words, aoa_mode)
         features.update(s_features)
         for feature in s_max_features:
-            features[feature] = max(features.get(feature), s_max_features[feature])
+            features[feature] = max(features.get(
+                feature), s_max_features[feature])
         uniq_words.update(sent_vocab)
         spacy_time = time.perf_counter() - spacy_time
 
     # TREE EDIT DISTANCE
     ted_time = time.perf_counter()
-    ted_avg = ta.ted_analysis(ted_mode, sents);
+    ted_avg = ta.ted_analysis(ted_mode, sents)
     ted_time = time.perf_counter() - ted_time
 
     summary = {
         # File-level
-        'date' : metadata['date'],
-        'year' : re.search('(\d{4})', metadata['date']).group(1),
-        'pres_name' : metadata['pres_name'],
-        'byline' : metadata['byline'],
-        'title' : metadata['title'],
+        'date': metadata['date'],
+        'year': re.search('(\d{4})', metadata['date']).group(1),
+        'pres_name': metadata['pres_name'],
+        'byline': metadata['byline'],
+        'title': metadata['title'],
 
         # Performance time
-        'benepar_analysis_time' : benepar_time,
-        'spacy_analysis_time' : spacy_time,
-        'tree_edit_distance_time' : ted_time,
-        'total_file_analysis_time' : time.perf_counter() - file_time,
+        'benepar_analysis_time': benepar_time,
+        'spacy_analysis_time': spacy_time,
+        'tree_edit_distance_time': ted_time,
+        'total_file_analysis_time': time.perf_counter() - file_time,
 
         # Doc-level
-        'num_tokens' : num_tokens,
-        'num_sentences' : num_sents, 
+        'num_tokens': num_tokens,
+        'num_sentences': num_sents,
+        'num_paratactic_clauses': features['root_parataxis_loose'],
         # 'avg_ted_adj' : ted_avg_adj,
         # 'avg_ted_comb' : ted_avg_comb,
-        f'avg_tree_edit_dist_{ted_mode}' : ted_avg,
+        f'avg_tree_edit_dist_{ted_mode}': ted_avg,
 
         # Benepar
-        'avg_node_depth' : features['depth_sum'] / num_tokens, 
-        'max_node_depth' : features['max_depth'], # Equivalent to tree height
-        'avg_node_clause_depth' : features['clause_depth_sum'] / num_tokens,
-        'max_node_clause_depth' : features['max_clause_depth'],
-        'avg_max_clause_depth' : features['max_clause_depth_sum'] / num_sents,
-        'avg_clause_length' : features['clause_length_sum'] / features['num_clauses'],
-        'clauses_per_sent' : features['num_clauses'] / num_sents, 
-        'sbars_per_sent' : features['num_sbar'] / num_sents,
-        'pronouns_per_sent' : features['pronoun_sum'] / num_sents,
-        'pronouns_per_clause' : features['pronoun_sum'] / features['num_clauses'],
-        'pronoun_prop_of_leaf_nps' : features['pronoun_sum'] / features['num_leaf_nps'],
-        'avg_np_length' : features['np_leaf_sum'] / features['num_nps'],
-        'avg_words_before_np_root' : features['words_before_np_root_sum'] / features['num_nps'],
-        'loose_parataxis_per_sent' : features['paratactic_sum'] / num_sents,
-        'root_parataxis_per_sent_strict' : features['root_parataxis_strict'] / num_sents,
-        'root_parataxis_per_sent_loose' : features['root_parataxis_loose'] / num_sents,
-        'num_unk' : features['num_unk'],
+        'avg_node_depth': features['depth_sum'] / num_tokens,
+        'max_node_depth': features['max_depth'],  # Equivalent to tree height
+        'avg_node_clause_depth': features['clause_depth_sum'] / num_tokens,
+        'max_node_clause_depth': features['max_clause_depth'],
+        'avg_max_clause_depth': features['max_clause_depth_sum'] / num_sents,
+        'avg_clause_length': features['clause_length_sum'] / features['num_clauses'],
+        'clauses_per_sent': features['num_clauses'] / num_sents,
+        'sbars_per_sent': features['num_sbar'] / num_sents,
+        'sbars_by_parataxis': features['num_sbar'] / features['root_parataxis_loose'],
+        'pronouns_per_sent': features['pronoun_sum'] / num_sents,
+        'pronouns_per_clause': features['pronoun_sum'] / features['num_clauses'],
+        'pronouns_by_parataxis': features['pronoun_sum'] / features['root_parataxis_loose'],
+        'pronoun_prop_of_leaf_nps': features['pronoun_sum'] / features['num_leaf_nps'],
+        'avg_np_length': features['np_leaf_sum'] / features['num_nps'],
+        'avg_words_before_np_root': features['words_before_np_root_sum'] / features['num_nps'],
+        'loose_parataxis_per_sent': features['paratactic_sum'] / num_sents,
+        'root_parataxis_per_sent_strict': features['root_parataxis_strict'] / num_sents,
+        'root_parataxis_per_sent_loose': features['root_parataxis_loose'] / num_sents,
+        'num_unk': features['num_unk'],
 
         # spaCy
-        'num_words' : features['num_words'],
-        'avg_dependency_distance' : features['dep_dist_sum'] / features['num_words'],
-        'max_dependency_distance' : features['max_dep_dist'],
-        'avg_sentence_length_by_tok' : num_tokens / num_sents, 
-        'avg_sentence_length_by_word' : features['num_words'] / num_sents,
-        'avg_words_before_root' : features['words_before_root_sum'] / num_sents,
-        'num_uniq_words' : len(uniq_words), 
-        'proportion_uniq' : len(uniq_words) / features['num_words_no_nums'],
-        'stop_words_per_clause' : features['num_stop_words'] / features['num_clauses'],
-        'stop_words_per_sentence' : features['num_stop_words'] / num_sents,
-        f'avg_aoa_{aoa_mode}' : features['aoa_sum'] / features['aoa_count'],
-        f'avg_aoa_uniq_{aoa_mode}' : features['aoa_uniq_sum'] / features['aoa_uniq_count'],
-        f'avg_stopless_aoa_{aoa_mode}' : features['aoa_stopless_sum'] / features['aoa_stopless_count'],
-        f'avg_stopless_aoa_uniq_{aoa_mode}' : features['aoa_stopless_uniq_sum'] / features['aoa_stopless_uniq_count'],
-        'avg_word_freq' : features['wf_sum'] / features['wf_count'],
-        'avg_word_freq_uniq' : features['wf_uniq_sum'] / features['wf_uniq_count'],
-        'avg_word_freq_stopless' : features['wf_stopless_sum'] / features['wf_stopless_count'],
-        'avg_word_freq_stopless_uniq' : features['wf_stopless_uniq_sum'] / features['wf_stopless_uniq_count'],
-    }      
-    
+        'num_words': features['num_words'],
+        'avg_dependency_distance': features['dep_dist_sum'] / features['num_words'],
+        'max_dependency_distance': features['max_dep_dist'],
+        'avg_sentence_length_by_tok': num_tokens / num_sents,
+        'avg_sentence_length_by_word': features['num_words'] / num_sents,
+        'avg_paratactic_clause_len_by_word': features['num_words'] / features['root_parataxis_loose'],
+        'avg_words_before_root': features['words_before_root_sum'] / num_sents,
+        'num_uniq_words': len(uniq_words),
+        'proportion_uniq': len(uniq_words) / features['num_words_no_nums'],
+        'stop_words_per_clause': features['num_stop_words'] / features['num_clauses'],
+        'stop_words_per_sentence': features['num_stop_words'] / num_sents,
+        'stop_words_by_parataxis': features['num_stop_words'] / features['root_parataxis_loose'],
+        f'avg_aoa_{aoa_mode}': features['aoa_sum'] / features['aoa_count'],
+        f'avg_aoa_uniq_{aoa_mode}': features['aoa_uniq_sum'] / features['aoa_uniq_count'],
+        f'avg_stopless_aoa_{aoa_mode}': features['aoa_stopless_sum'] / features['aoa_stopless_count'],
+        f'avg_stopless_aoa_uniq_{aoa_mode}': features['aoa_stopless_uniq_sum'] / features['aoa_stopless_uniq_count'],
+        'avg_word_freq': features['wf_sum'] / features['wf_count'],
+        'avg_word_freq_uniq': features['wf_uniq_sum'] / features['wf_uniq_count'],
+        'avg_word_freq_stopless': features['wf_stopless_sum'] / features['wf_stopless_count'],
+        'avg_word_freq_stopless_uniq': features['wf_stopless_uniq_sum'] / features['wf_stopless_uniq_count'],
+    }
+
     results[file_name] = summary
-    
+
 print("Error Log:")
 print(log)
 pd.set_option('display.precision', 2)
