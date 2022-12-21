@@ -1,4 +1,5 @@
 library(ggplot2)
+library(ggpmisc)
 library(gridExtra)
 library(showtext)
 
@@ -8,15 +9,15 @@ font_add_google("Source Serif Pro")
 
 showtext_auto()
 
-results <- read.csv("results/complete_12-10.csv")
+results <- read.csv("results/complete_12-14.csv")
 
 results <- results[-c(1:2, 4:10)]
 
-plot_data_column <- function(data, column) {
+plot_data_column_name <- function(data, column, name) {
         p <- ggplot(data, aes(x = year, y = data[, column])) +
                 # ggtitle("Num Sents") +
                 xlab("year") +
-                ylab(column) +
+                ylab(name) +
                 geom_point(color = "#737373", size = 0.1) +
                 geom_smooth(
                         method = lm, color = "#b31414",
@@ -35,7 +36,7 @@ plot_data_column <- function(data, column) {
                         ),
                         plot.title = element_text(
                                 family = "Source Sans Pro",
-                                face = "bold", size = 54, 
+                                face = "bold", size = 54,
                                 margin = margin(b = 10)
                         ),
                         axis.text = element_text(color = "#9c9c9c"),
@@ -51,29 +52,72 @@ plot_data_column <- function(data, column) {
                         axis.ticks.x = element_line(color = "#9e9e9e"),
                         axis.ticks.length = unit(5, "pt"),
                         axis.line.x = element_line(color = "#9e9e9e"),
-                        plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
+                        plot.margin = margin(t = 5, b = 2, r = 2, l = 2),
                 )
 }
 
-myplots <- lapply(colnames(results[-1]), plot_data_column, data = results)
+plot_data_column <- function(data, column) {
+        plot_data_column_name(data, column, column)
+}
 
-# do.call("grid.arrange", myplots[1:2])
+small_plot <- function(data, column) {
+        plot_data_column(data, column) +
+                theme(
+                        text = element_text(size = 10),
+                        plot.margin = margin(t = 15, b = 15, r = 10, l = 10)
+                ) +
+                stat_poly_eq(aes(family = "Source Sans Pro"))
+}
 
-# do.call("ggsave", myplots[1:1], "test%03d.png")
 
-p1 <- plot_data_column(results, "avg_word_freq_uniq")
-p2 <- plot_data_column(results, "num_tokens")
-p3 <- plot_data_column(results, "num_tokens")
-p4 <- plot_data_column(results, "num_tokens")
+myplots <- lapply(colnames(results[-1]), small_plot, data = results)
 
-# png("Test.png", width=8.5, height=9, type = "cairo", unit="in", res=300)
-# grid.arrange(p1, p2, p3, p4, p3, p3, ncol=2)
-# dev.off()
+# do.call("grid.arrange", c(myplots[1:10], ncol = 4))
 
-ggsave("small.png", p1, width = 4.25, height = 3, type = "cairo", dpi = 300)
+# g <- arrangeGrob(grobs = myplots, ncol = 4)
+# ggsave("grobs.png", g, width = 8.5, height = 16, type = "cairo", dpi = 300)
 
-# ggsave("hf.png", plot_data_column(results, "num_tokens"), width=8.5, height=6, type = "cairo", dpi=300)
-# print(plot_data_column(results, "num_tokens"))
-# print(myplots[1])
 
-# myplots[1] +
+plot_file_name <- function(file, name) {
+        p <- plot_data_column_name(results, file, name)
+        ggsave(paste("analysis/export/", file, ".png", sep = ""), p,
+                width = 4.25, height = 3, type = "cairo",
+                dpi = 300
+        )
+}
+
+plot_file <- function(file) {
+        plot_file_name(file, file)
+}
+
+tags <- c(
+        "avg_stopless_aoa_min",
+        "stop_words_per_sentence",
+        "avg_sentence_length_by_word",
+        "avg_tree_edit_dist_adjacent",
+        "avg_clause_length",
+        "avg_aoa_min",
+        "avg_dependency_distance",
+        "avg_word_freq_stopless",
+        "avg_node_depth",
+        "avg_words_before_root",
+        "clauses_per_sent",
+        "avg_max_clause_depth",
+        "avg_node_clause_depth",
+        "max_dependency_distance",
+        "max_node_clause_depth",
+        "loose_parataxis_per_sent",
+        "root_parataxis_per_sent_loose",
+        "root_parataxis_per_sent_strict",
+        "avg_word_freq_uniq"
+)
+
+# for (f in tags) {
+#         plot_file(f)
+# }
+
+# plot_file_name("root_parataxis_per_sent_strict", "root_parataxis_strict")
+# plot_file_name("root_parataxis_per_sent_loose", "root_parataxis_loose")
+# plot_file_name("avg_tree_edit_dist_adjacent", "avg_tree_edit_dist_adj")
+# plot_file_name("avg_sentence_length_by_word", "avg_sentence_len_by_word")
+plot_file("avg_np_length")

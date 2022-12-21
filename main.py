@@ -144,6 +144,7 @@ for i, file in enumerate(os.scandir('data/text_jsons/')):
         'stop_words_per_clause': features['num_stop_words'] / features['num_clauses'],
         'stop_words_per_sentence': features['num_stop_words'] / num_sents,
         'stop_words_by_parataxis': features['num_stop_words'] / features['root_parataxis_loose'],
+        'prop_stop' : features['num_stop_words'] / features['num_words'],
         f'avg_aoa_{aoa_mode}': features['aoa_sum'] / features['aoa_count'],
         f'avg_aoa_uniq_{aoa_mode}': features['aoa_uniq_sum'] / features['aoa_uniq_count'],
         f'avg_stopless_aoa_{aoa_mode}': features['aoa_stopless_sum'] / features['aoa_stopless_count'],
