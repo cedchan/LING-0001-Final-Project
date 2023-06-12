@@ -1,6 +1,6 @@
 # Syntactic Complexity Trends over Time
 
-This project analyzes inaugural addresses to identify syntactic features that may help numericize the still abstract notion of syntactic "complexity." More information and appropriate citations may be found <a href="https://drive.google.com/file/d/1hGIopC1Rn_JZlOrbenaRBfbH7H-ES1dk/view">here</a>.
+This project analyzes inaugural addresses to identify syntactic features that may help numericize the still abstract notion of syntactic "complexity." More information and appropriate citations may be found <a href="https://drive.google.com/file/d/1ckiS1XE_0PLdLK1tY5YxVZvD-Q9wNsVz/view?usp=sharing">here</a>.
 
 ## Navigating Project Directories
 
