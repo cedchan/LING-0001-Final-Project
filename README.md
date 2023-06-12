@@ -1,4 +1,4 @@
-# Syntactic Complexity Trends over Time
+# Quantifying Syntactic Complexity: Measuring Historical Patterns Through Inaugural Addresses
 
 This project analyzes inaugural addresses to identify syntactic features that may help numericize the still abstract notion of syntactic "complexity." More information and appropriate citations may be found <a href="https://drive.google.com/file/d/1ckiS1XE_0PLdLK1tY5YxVZvD-Q9wNsVz/view?usp=sharing">here</a>.
 
