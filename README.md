@@ -1,4 +1,4 @@
-# Syntactic Complexity Trends over Time | LING 0001 Final Project
+# Syntactic Complexity Trends over Time
 
 This project analyzes inaugural addresses to identify syntactic features that may help numericize the still abstract notion of syntactic "complexity." More information and appropriate citations may be found <a href="https://drive.google.com/file/d/1hGIopC1Rn_JZlOrbenaRBfbH7H-ES1dk/view">here</a>.
 
